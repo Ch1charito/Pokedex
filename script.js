@@ -35,6 +35,9 @@ console.log(allPokemon);
         let PokemonContentRef = document.getElementById('pokemon-cards');
         for (let i = 0; i < allPokemon.length; i++) {
             PokemonContentRef.innerHTML += getPokemonCardTemplate(i);
+            renderCardNumber(i);
+            renderCardName(i);
+            renderCardImg(i);
         }
     }
 
@@ -42,8 +45,8 @@ console.log(allPokemon);
     function getPokemonCardTemplate(index) {
         return /*html*/`
             <div>
-                <div><p>number</p><h2>name</h2></div>
-                <img src="" alt="">
+                <div><p id="card-number-${index}">number</p><h2 id="card-name-${index}">name</h2></div>
+                <img id="card-img-${index}" src="" alt="Pokemon Bild">
                 <div>hier kommt dann fähigkeiten rein</div>
             </div>
         `
@@ -55,4 +58,20 @@ console.log(allPokemon);
     async function init() {
         await getAndStoreData();
         renderPokemonCards();
+    }
+
+    // ich brauche nun functionen um die infos aus meinem array in mein projekt zu rendern
+    function renderCardNumber(index) {
+        const cardNumberRef = document.getElementById(`card-number-${index}`);
+        cardNumberRef.innerHTML = index + 1;
+    }
+
+    function renderCardName(index) {
+        const cardNameRef = document.getElementById(`card-name-${index}`);
+        cardNameRef.innerHTML = allPokemon[index].name;
+    }
+
+    function renderCardImg(index) {
+        const cardImgRef = document.getElementById(`card-img-${index}`);
+        cardImgRef.src = allPokemon[index].image;
     }

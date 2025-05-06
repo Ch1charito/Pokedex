@@ -5,6 +5,9 @@
     position: relative;
     scroll-behavior: smooth;
 }
+html{
+    font-family: "Varela Round", sans-serif;
+}
 
 header {
     background-color: #082028;
