@@ -15,3 +15,14 @@ console.log(allPokemon);
         allPokemon = data.results;                          // wir geben unserer globalen variablen nur den teil results weil wir nur die namen und die weitern urls zu den restinfos der pokemon brauchen
         console.log(allPokemon);                            // wir lassen uns nun allPokemon als log anzeigen und sehen das es ein array ist
     }
+
+    // eine function um alle daten zu den pokemons zu bekommen
+    async function getAllInfo() {
+        for (let i = 0; i < allPokemon.length; i++) {
+            const url = allPokemon[i].url;
+            const response = await fetch(url);
+            const data = await response.json();
+            allPokemon[i].image = data.sprites.front_default;
+        }
+        console.log(allPokemon);
+    }
