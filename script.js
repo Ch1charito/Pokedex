@@ -24,6 +24,7 @@ console.log(allPokemon);
             const response = await fetch(url);                  // wir fetchen und die daten von der url
             const data = await response.json();                 // wir verwandeln das bekommen in ein JSON
             allPokemon[i].image = data.sprites.front_default;   // wir wollen nur die daten zu den bildern (später fügen wir dann noch daten wie height weight etc hinzu) und wollen sie als bei dem jewiligen pokemon als key image mit dem jeweiligen value hinzufügen
+            allPokemon[i].types = getTypes(data);               // ich speichere die types in meinem array allpokemon an der stelle types und rufe dafür die function mit dem richtigen parameter aus
         }
         console.log(allPokemon);
     }
@@ -38,16 +39,17 @@ console.log(allPokemon);
             renderCardNumber(i);
             renderCardName(i);
             renderCardImg(i);
+            renderTypes(i);
         }
     }
 
     // die template mit der wir die cards hinzufügen
     function getPokemonCardTemplate(index) {
         return /*html*/`
-            <div>
-                <div><p id="card-number-${index}">number</p><h2 id="card-name-${index}">name</h2></div>
+            <div class="pokemon-card">
+                <div class="number-name-card"><h2 id="card-number-${index}">number</h2><h2 id="card-name-${index}">name</h2></div>
                 <img id="card-img-${index}" src="" alt="Pokemon Bild">
-                <div>hier kommt dann fähigkeiten rein</div>
+                <div class="card-types-div" id="card-types-${index}"></div>
             </div>
         `
         
@@ -74,4 +76,30 @@ console.log(allPokemon);
     function renderCardImg(index) {
         const cardImgRef = document.getElementById(`card-img-${index}`);
         cardImgRef.src = allPokemon[index].image;
+    }
+
+    // ich möchte eine function mit der ich die unterschiedlichen daten abfragen kann z.b. types height weight etc
+
+    function getTypes(data) {                               // ich übernehme data aus getAllinfo()
+        let types = [];                                     // ich erstelle ein array namens types in dem ich die types der jeweiligen pokemon speichern will
+            for (let j = 0; j < data.types.length; j++) {   // ich wiederhole in data.types solange bis es keine einträge mehr gibt 
+                types.push(data.types[j].type.name);        // ich pushe meinem array die value die ich mir gezogen habe
+            }
+            return types;                                   // ich returne den wert und füge ihn bei getAllInfo allPokemon hinzu
+    }
+
+    // jetzt rbauche ich eine fcuntion um die types auch zu rendern in meiner template function 
+
+    function renderTypes(index) {
+        const typesRef = document.getElementById(`card-types-${index}`);
+        typesRef.innerHTML = '';
+        for (let i = 0; i < allPokemon[index].types.length; i++) {
+            typesRef.innerHTML += getTypesTemplate(allPokemon[index].types[i]);
+        }
+    }
+
+    function getTypesTemplate(type){
+        return /*html*/`
+            <p class="card-types">${type}</p>
+        `
     }
