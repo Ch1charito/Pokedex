@@ -40,13 +40,14 @@ console.log(allPokemon);
             renderCardName(i);
             renderCardImg(i);
             renderTypes(i);
+            setCardBackgroundColor(i);
         }
     }
 
     // die template mit der wir die cards hinzufügen
     function getPokemonCardTemplate(index) {
         return /*html*/`
-            <div class="pokemon-card">
+            <div class="pokemon-card" id="pokemon-card-${index}">
                 <div class="number-name-card"><h2 id="card-number-${index}">number</h2><h2 id="card-name-${index}">name</h2></div>
                 <img id="card-img-${index}" src="" alt="Pokemon Bild">
                 <div class="card-types-div" id="card-types-${index}"></div>
@@ -102,4 +103,34 @@ console.log(allPokemon);
         return /*html*/`
             <p class="card-types">${type}</p>
         `
+    }
+
+    // als nächstes möchte ich die bg farbe anpassen
+    const typeColors = {                // ich habe eine variable den gebe ich die keys und values als farben
+        normal:    '#A8A77A',
+        fire:      '#EE8130',
+        water:     '#6390F0',
+        electric:  '#F7D02C',
+        grass:     '#7AC74C',
+        ice:       '#96D9D6',
+        fighting:  '#C22E28',
+        poison:    '#A33EA1',
+        ground:    '#E2BF65',
+        flying:    '#A98FF3',
+        psychic:   '#F95587',
+        bug:       '#A6B91A',
+        rock:      '#B6A136',
+        ghost:     '#735797',
+        dragon:    '#6F35FC',
+        dark:      '#705746',
+        steel:     '#B7B7CE',
+        fairy:     '#D685AD'
+    };
+
+
+    function setCardBackgroundColor(index) {
+    const cardRef = document.getElementById(`pokemon-card-${index}`);  // ich nutze den index um auch immer bei der richtigen card zu sein
+    const firstType = allPokemon[index].types[0];                      // ichfrage den ersten type also an der stelle 0 im array ab --> das gibt mir den key für type colors
+    const color = typeColors[firstType];                               // ich gebe meienr variablen den wert (den colorcode --> also die value) first type also dem key entsprechend
+    cardRef.style.backgroundColor = color;                             // ich verändere das css von der backgroundcolor mit dem colorcode aus meinem objekt
     }
