@@ -47,7 +47,7 @@ console.log(allPokemon);
     // die template mit der wir die cards hinzufügen
     function getPokemonCardTemplate(index) {
         return /*html*/`
-            <div class="pokemon-card" id="pokemon-card-${index}">
+            <div class="pokemon-card" id="pokemon-card-${index}" onclick="toggleOverlay()">
                 <div class="number-name-card"><h2 id="card-number-${index}">number</h2><h2 id="card-name-${index}">name</h2></div>
                 <img id="card-img-${index}" src="" alt="Pokemon Bild">
                 <div class="card-types-div" id="card-types-${index}"></div>
@@ -133,4 +133,11 @@ console.log(allPokemon);
     const firstType = allPokemon[index].types[0];                      // ichfrage den ersten type also an der stelle 0 im array ab --> das gibt mir den key für type colors
     const color = typeColors[firstType];                               // ich gebe meienr variablen den wert (den colorcode --> also die value) first type also dem key entsprechend
     cardRef.style.backgroundColor = color;                             // ich verändere das css von der backgroundcolor mit dem colorcode aus meinem objekt
+    }
+    
+    // eine function um mein overlay zu togglen
+
+    function toggleOverlay() {
+        const overlay = document.getElementById('overlay');
+        overlay.classList.toggle('d_none');  // Fügt die Klasse hinzu oder entfernt sie
     }
