@@ -141,3 +141,20 @@ console.log(allPokemon);
         const overlay = document.getElementById('overlay');
         overlay.classList.toggle('d_none');  // Fügt die Klasse hinzu oder entfernt sie
     }
+
+    // als nächstes will ich den inhalt des overlays bestimmen das mache ich durch eine template die gerendert werden soll
+
+    function getOverlayTemplate() {
+        return /*html*/`
+            <div>
+                <div><h2>id</h2><h2>name</h2><button>x</button></div>
+                <img src="" alt="">
+                <div>types</div>
+                <div><h3>hp:</h3><p>hp in number</p></div>
+                <div><h3>attack:</h3><p>attack in number</p></div>
+                <div><h3>defense:</h3><p>defense in number</p></div>
+                <div><button>&larr;</button><button>&rarr;</button></div>
+            </div>
+        `
+        
+    }
