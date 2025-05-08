@@ -25,6 +25,7 @@ console.log(allPokemon);
             const data = await response.json();                 // wir verwandeln das bekommen in ein JSON
             allPokemon[i].image = data.sprites.front_default;   // wir wollen nur die daten zu den bildern (später fügen wir dann noch daten wie height weight etc hinzu) und wollen sie als bei dem jewiligen pokemon als key image mit dem jeweiligen value hinzufügen
             allPokemon[i].types = getTypes(data);               // ich speichere die types in meinem array allpokemon an der stelle types und rufe dafür die function mit dem richtigen parameter aus
+            allPokemon[i].stats = getStats(data);
         }
         console.log(allPokemon);
     }
@@ -141,13 +142,13 @@ console.log(allPokemon);
 
     function getOverlayTemplate(index) {
         return /*html*/`
-            <div class="overlay-card">
+            <div class="overlay-card" id="overlay-card-${index}">
                 <div class="id-name-overlay"><h2 id="overlay-number-${index}">id</h2><h2 id="overlay-name-${index}">name</h2><button class="close-btn" onclick="closeOverlay()">X</button></div>
                 <div class="overlay-img-position"><img id="overlay-img-${index}" src="" alt=""></div>
                 <div class="card-types-div" id="overlay-types-${index}">types</div>
-                <div><h3>hp:</h3><p>hp in number</p></div>
-                <div><h3>attack:</h3><p>attack in number</p></div>
-                <div><h3>defense:</h3><p>defense in number</p></div>
+                <div class="overlay-stats"><h3>hp:</h3><p id="overlay-hp-${index}">hp in number</p></div>
+                <div class="overlay-stats"><h3>attack:</h3><p id="overlay-attack-${index}">attack in number</p></div>
+                <div class="overlay-stats"><h3>defense:</h3><p id="overlay-defense-${index}">defense in number</p></div>
                 <div><button>&larr;</button><button>&rarr;</button></div>
             </div>
         `
@@ -161,6 +162,10 @@ console.log(allPokemon);
         renderOverlayName(index);
         renderOverlayImg(index);
         renderOverlayTypes(index);
+        setOverlayBackgroundColor(index);
+        renderOverlayHp(index);
+        renderOverlayAttack(index);
+        renderOverlayDefense(index);
     }
 
     function openOverlay(index) {
@@ -205,3 +210,37 @@ console.log(allPokemon);
     }
 
     // eine function um die background color anzupassen
+    function setOverlayBackgroundColor(index) {
+        const cardRef = document.getElementById(`overlay-card-${index}`);  
+        const firstType = allPokemon[index].types[0];                      
+        const color = typeColors[firstType];                               
+        cardRef.style.backgroundColor = color;                             
+    }
+
+    // eine function um auf stats: zuzugreifen in der api also auf attack hp defense etc
+    function getStats(data) {
+        let stats = [];
+        for (let j = 0; j < data.stats.length; j++) {
+            stats.push({
+                name: data.stats[j].stat.name,
+                value: data.stats[j].base_stat
+            });
+        }
+        return stats;
+    }
+    
+    // functionen um hp attack und defense stats zu rendern
+    function renderOverlayHp(index) {
+        const hpRef = document.getElementById(`overlay-hp-${index}`);
+        hpRef.innerHTML = allPokemon[index].stats[0].value;                         // kann ich so amchen da sich hp immer am index 1 also an der position 0 befinde genau wie attack immer auf 1 und defense immer auf 2
+    }
+
+    function renderOverlayAttack(index) {
+        const attackRef = document.getElementById(`overlay-attack-${index}`);
+        attackRef.innerHTML = allPokemon[index].stats[1].value;
+    }
+
+    function renderOverlayDefense(index) {
+        const defenseRef = document.getElementById(`overlay-defense-${index}`);
+        defenseRef.innerHTML = allPokemon[index].stats[2].value;
+    }
