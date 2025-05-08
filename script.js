@@ -267,15 +267,15 @@ console.log(allPokemon);
 
     // eine cuntion mit der ich nach pokemon suchen kann
     function searchPokemon() {
-        const searchInput = document.getElementById('search-input').value.toLowerCase();
+        const searchInput = document.getElementById('search-input').value.toLowerCase();                // ich hole mir den wert aus dem input feld und wandel in in kleinbuchstaben um weil die namen in kleinbuchstaben gespeichert wurden
         const searchResults = allPokemon.filter(pokemon => 
             pokemon.name.toLowerCase().startsWith(searchInput)
-        );
+        );                                                                                              // Filtert alle Pokémon, deren Namen mit dem eingegebenen Text beginnen (ebenfalls in Kleinbuchstaben)
     
         const container = document.getElementById('pokemon-cards');
-        container.innerHTML = ''; 
+        container.innerHTML = '';                                                                       // ich leere den container
     
-        for (let i = 0; i < searchResults.length; i++) {
+        for (let i = 0; i < searchResults.length; i++) {                                                // ich render die cards die in der suche als ergebnis gefunden wurden und in searchResults sind
             const index = allPokemon.indexOf(searchResults[i]);
             container.innerHTML += getPokemonCardTemplate(index);
             renderCardNumber(index);
