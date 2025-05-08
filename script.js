@@ -264,3 +264,24 @@ console.log(allPokemon);
             renderOverlay(i-1); // geht zum voherigen Element
         }
     }
+
+    // eine cuntion mit der ich nach pokemon suchen kann
+    function searchPokemon() {
+        const searchInput = document.getElementById('search-input').value.toLowerCase();
+        const searchResults = allPokemon.filter(pokemon => 
+            pokemon.name.toLowerCase().startsWith(searchInput)
+        );
+    
+        const container = document.getElementById('pokemon-cards');
+        container.innerHTML = ''; 
+    
+        for (let i = 0; i < searchResults.length; i++) {
+            const index = allPokemon.indexOf(searchResults[i]);
+            container.innerHTML += getPokemonCardTemplate(index);
+            renderCardNumber(index);
+            renderCardName(index);
+            renderCardImg(index);
+            renderTypes(index);
+            setCardBackgroundColor(index);
+        }
+    }
