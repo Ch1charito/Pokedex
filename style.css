@@ -105,7 +105,7 @@ main{
             img{
                 height: 150px;
             }
-            .card-types-div{
+            /* .card-types-div{
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: center;
@@ -121,7 +121,7 @@ main{
                 width: 80px;
                 height: 30px;
                 }
-            }
+            } */
             
         }
         .pokemon-card:hover {
@@ -163,4 +163,22 @@ footer {
   /* Wenn sichtbar: Overlay zeigt sich als Flexbox */
 .overlay-visible {
     display: flex;
+}
+
+.card-types-div{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    .card-types{
+    _background-color: #082028;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    width: 80px;
+    height: 30px;
+    }
 }

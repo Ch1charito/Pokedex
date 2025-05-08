@@ -144,7 +144,7 @@ console.log(allPokemon);
             <div class="overlay-card">
                 <div class="id-name-overlay"><h2 id="overlay-number-${index}">id</h2><h2 id="overlay-name-${index}">name</h2><button class="close-btn" onclick="closeOverlay()">X</button></div>
                 <div class="overlay-img-position"><img id="overlay-img-${index}" src="" alt=""></div>
-                <div>types</div>
+                <div class="card-types-div" id="overlay-types-${index}">types</div>
                 <div><h3>hp:</h3><p>hp in number</p></div>
                 <div><h3>attack:</h3><p>attack in number</p></div>
                 <div><h3>defense:</h3><p>defense in number</p></div>
@@ -160,6 +160,7 @@ console.log(allPokemon);
         renderOverlayNumber(index);
         renderOverlayName(index);
         renderOverlayImg(index);
+        renderOverlayTypes(index);
     }
 
     function openOverlay(index) {
@@ -192,3 +193,15 @@ console.log(allPokemon);
         const cardImgRef = document.getElementById(`overlay-img-${index}`);
         cardImgRef.src = allPokemon[index].image;
     }
+
+    // eine function um die types auch im overlay zu rendern
+
+    function renderOverlayTypes(index) {
+        const typesRef = document.getElementById(`overlay-types-${index}`);
+        typesRef.innerHTML = '';
+        for (let i = 0; i < allPokemon[index].types.length; i++) {
+            typesRef.innerHTML += getTypesTemplate(allPokemon[index].types[i]);
+        }
+    }
+
+    // eine function um die background color anzupassen
