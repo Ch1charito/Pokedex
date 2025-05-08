@@ -143,13 +143,13 @@ console.log(allPokemon);
     function getOverlayTemplate(index) {
         return /*html*/`
             <div class="overlay-card" id="overlay-card-${index}">
-                <div class="id-name-overlay"><h2 id="overlay-number-${index}">id</h2><h2 id="overlay-name-${index}">name</h2><button class="close-btn" onclick="closeOverlay()">X</button></div>
+                <div class="id-name-overlay"><h2 id="overlay-number-${index}">id</h2><h2 id="overlay-name-${index}">name</h2><button class="button" onclick="closeOverlay()">X</button></div>
                 <div class="overlay-img-position"><img id="overlay-img-${index}" src="" alt=""></div>
                 <div class="card-types-div" id="overlay-types-${index}">types</div>
                 <div class="overlay-stats"><h3>hp:</h3><p id="overlay-hp-${index}">hp in number</p></div>
                 <div class="overlay-stats"><h3>attack:</h3><p id="overlay-attack-${index}">attack in number</p></div>
                 <div class="overlay-stats"><h3>defense:</h3><p id="overlay-defense-${index}">defense in number</p></div>
-                <div><button>&larr;</button><button>&rarr;</button></div>
+                <div class="overlay-stats"><button class="button" onclick="moveLeft(${index})">&larr;</button><button class="button" onclick="moveRight(${index})">&rarr;</button></div>
             </div>
         `
     }
@@ -243,4 +243,24 @@ console.log(allPokemon);
     function renderOverlayDefense(index) {
         const defenseRef = document.getElementById(`overlay-defense-${index}`);
         defenseRef.innerHTML = allPokemon[index].stats[2].value;
+    }
+
+    // jetzt brauche ich zwei function um einmal mich nach rechts zu bewegen und einmal um mich nach links zu bewegen
+
+    function moveRight(i) {
+        if (i >= allPokemon.length - 1) { // Wenn i gleich oder größer als das letzte Element ist
+            i = 0; // setzt i auf das erste Element zurück
+        } else {
+            i = i + 1; // geht zum nächsten Element
+        }
+        renderOverlay(i);
+    }
+
+    function moveLeft(i) {
+        if (i === 0) { // Wenn i gleich 0 ist
+            renderOverlay(allPokemon.length - 1); // setzt i auf das letzte Element zurück
+        
+        } else {
+            renderOverlay(i-1); // geht zum voherigen Element
+        }
     }

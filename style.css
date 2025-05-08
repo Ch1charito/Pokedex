@@ -49,7 +49,7 @@ main{
         align-items: center;
         z-index: 1;
         #overlay-content{
-            height: 550px;
+            height: 500px;
             width: 400px;
             display: flex;
             justify-content: center;
@@ -60,13 +60,13 @@ main{
                 .id-name-overlay{
                 display: flex;
                 justify-content: space-between;
-                    .close-btn{
+                    /* .button{
                     background: transparent;
                     color: white;
                     cursor: pointer;
                     font-size: 24px;
                     border: none;
-                    }
+                    } */
                 }
                 .overlay-img-position{
                     display: flex;
@@ -186,4 +186,11 @@ footer {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 8px;
+}
+.button{
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    font-size: 24px;
+    border: none;
 }
