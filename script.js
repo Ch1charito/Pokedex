@@ -47,7 +47,7 @@ console.log(allPokemon);
     // die template mit der wir die cards hinzufügen
     function getPokemonCardTemplate(index) {
         return /*html*/`
-            <div class="pokemon-card" id="pokemon-card-${index}" onclick="openOverlay()">
+            <div class="pokemon-card" id="pokemon-card-${index}" onclick="openOverlay(${index})">
                 <div class="number-name-card"><h3 id="card-number-${index}">number</h3><h3 id="card-name-${index}">name</h3></div>
                 <img id="card-img-${index}" src="" alt="Pokemon Bild">
                 <div class="card-types-div" id="card-types-${index}"></div>
@@ -139,11 +139,11 @@ console.log(allPokemon);
 
     // als nächstes will ich den inhalt des overlays bestimmen das mache ich durch eine template die gerendert werden soll
 
-    function getOverlayTemplate() {
+    function getOverlayTemplate(index) {
         return /*html*/`
             <div class="overlay-card">
-                <div class="id-name-overlay"><h2>id</h2><h2>name</h2><button class="close-btn" onclick="closeOverlay()">X</button></div>
-                <img src="" alt="">
+                <div class="id-name-overlay"><h2 id="overlay-number-${index}">id</h2><h2 id="overlay-name-${index}">name</h2><button class="close-btn" onclick="closeOverlay()">X</button></div>
+                <div class="overlay-img-position"><img id="overlay-img-${index}" src="" alt=""></div>
                 <div>types</div>
                 <div><h3>hp:</h3><p>hp in number</p></div>
                 <div><h3>attack:</h3><p>attack in number</p></div>
@@ -153,17 +153,20 @@ console.log(allPokemon);
         `
     }
 
-    function renderOverlay() {
+    function renderOverlay(index) {
         let overlayRef = document.getElementById('overlay-content');
         overlayRef.innerHTML = '';
-        overlayRef.innerHTML += getOverlayTemplate();
+        overlayRef.innerHTML += getOverlayTemplate(index);
+        renderOverlayNumber(index);
+        renderOverlayName(index);
+        renderOverlayImg(index);
     }
 
-    function openOverlay() {
+    function openOverlay(index) {
         const overlay = document.getElementById('overlay');
         overlay.classList.remove('overlay-hidden');
         overlay.classList.add('overlay-visible');
-        renderOverlay();
+        renderOverlay(index);
     }
 
     function closeOverlay() {
@@ -172,3 +175,20 @@ console.log(allPokemon);
         overlay.classList.add('overlay-hidden');
     }
 
+    // jetzt brauche ich wieder render functionen um die elemtne zu rendern
+
+    function renderOverlayNumber(index) {
+        const cardNumberRef = document.getElementById(`overlay-number-${index}`);
+        cardNumberRef.innerHTML = index + 1;
+    }
+
+    function renderOverlayName(index) {
+        const cardNameRef = document.getElementById(`overlay-name-${index}`);
+        const name = allPokemon[index].name.toUpperCase();
+        cardNameRef.innerHTML = name;
+    }
+
+    function renderOverlayImg(index) {
+        const cardImgRef = document.getElementById(`overlay-img-${index}`);
+        cardImgRef.src = allPokemon[index].image;
+    }

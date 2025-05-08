@@ -61,13 +61,20 @@ main{
                 .id-name-overlay{
                 display: flex;
                 justify-content: space-between;
-                .close-btn{
+                    .close-btn{
                     background: transparent;
                     color: white;
                     cursor: pointer;
                     font-size: 24px;
                     border: none;
+                    }
                 }
+                .overlay-img-position{
+                    display: flex;
+                    justify-content: center;
+                    img{
+                        height: 250px;
+                    }
                 }
             }
             
