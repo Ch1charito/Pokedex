@@ -48,7 +48,7 @@ console.log(allPokemon);
     function getPokemonCardTemplate(index) {
         return /*html*/`
             <div class="pokemon-card" id="pokemon-card-${index}" onclick="toggleOverlay()">
-                <div class="number-name-card"><h2 id="card-number-${index}">number</h2><h2 id="card-name-${index}">name</h2></div>
+                <div class="number-name-card"><h3 id="card-number-${index}">number</h3><h3 id="card-name-${index}">name</h3></div>
                 <img id="card-img-${index}" src="" alt="Pokemon Bild">
                 <div class="card-types-div" id="card-types-${index}"></div>
             </div>
@@ -71,7 +71,8 @@ console.log(allPokemon);
 
     function renderCardName(index) {
         const cardNameRef = document.getElementById(`card-name-${index}`);
-        cardNameRef.innerHTML = allPokemon[index].name;
+        const name = allPokemon[index].name.toUpperCase();
+        cardNameRef.innerHTML = name;
     }
 
     function renderCardImg(index) {
@@ -140,13 +141,14 @@ console.log(allPokemon);
     function toggleOverlay() {
         const overlay = document.getElementById('overlay');
         overlay.classList.toggle('d_none');  // Fügt die Klasse hinzu oder entfernt sie
+        renderOverlay();
     }
 
     // als nächstes will ich den inhalt des overlays bestimmen das mache ich durch eine template die gerendert werden soll
 
     function getOverlayTemplate() {
         return /*html*/`
-            <div>
+            <div class="overlay-card">
                 <div><h2>id</h2><h2>name</h2><button>x</button></div>
                 <img src="" alt="">
                 <div>types</div>
@@ -156,5 +158,10 @@ console.log(allPokemon);
                 <div><button>&larr;</button><button>&rarr;</button></div>
             </div>
         `
-        
+    }
+
+    function renderOverlay() {
+        let overlayRef = document.getElementById('overlay-content');
+        overlayRef.innerHTML = '';
+        overlayRef.innerHTML += getOverlayTemplate();
     }
