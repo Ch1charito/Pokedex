@@ -47,7 +47,7 @@ console.log(allPokemon);
     // die template mit der wir die cards hinzufügen
     function getPokemonCardTemplate(index) {
         return /*html*/`
-            <div class="pokemon-card" id="pokemon-card-${index}" onclick="toggleOverlay()">
+            <div class="pokemon-card" id="pokemon-card-${index}" onclick="openOverlay()">
                 <div class="number-name-card"><h3 id="card-number-${index}">number</h3><h3 id="card-name-${index}">name</h3></div>
                 <img id="card-img-${index}" src="" alt="Pokemon Bild">
                 <div class="card-types-div" id="card-types-${index}"></div>
@@ -136,20 +136,13 @@ console.log(allPokemon);
     cardRef.style.backgroundColor = color;                             // ich verändere das css von der backgroundcolor mit dem colorcode aus meinem objekt
     }
     
-    // eine function um mein overlay zu togglen
-
-    function toggleOverlay() {
-        const overlay = document.getElementById('overlay');
-        overlay.classList.toggle('d_none');  // Fügt die Klasse hinzu oder entfernt sie
-        renderOverlay();
-    }
 
     // als nächstes will ich den inhalt des overlays bestimmen das mache ich durch eine template die gerendert werden soll
 
     function getOverlayTemplate() {
         return /*html*/`
             <div class="overlay-card">
-                <div><h2>id</h2><h2>name</h2><button>x</button></div>
+                <div class="id-name-overlay"><h2>id</h2><h2>name</h2><button class="close-btn" onclick="closeOverlay()">X</button></div>
                 <img src="" alt="">
                 <div>types</div>
                 <div><h3>hp:</h3><p>hp in number</p></div>
@@ -165,3 +158,17 @@ console.log(allPokemon);
         overlayRef.innerHTML = '';
         overlayRef.innerHTML += getOverlayTemplate();
     }
+
+    function openOverlay() {
+        const overlay = document.getElementById('overlay');
+        overlay.classList.remove('overlay-hidden');
+        overlay.classList.add('overlay-visible');
+        renderOverlay();
+    }
+
+    function closeOverlay() {
+        const overlay = document.getElementById('overlay');
+        overlay.classList.remove('overlay-visible');
+        overlay.classList.add('overlay-hidden');
+    }
+
