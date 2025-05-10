@@ -18,10 +18,10 @@
 <body onload="init()">
     <header>
         <div class=" header-content content">
-            <img src="./img/logo/pokemon-logo.png" alt="pokemon-logo">
+            <a href="index.html"><img src="./img/logo/pokemon-logo.png" alt="pokemon-logo"></a>
             <div>
                 <input type="text" id="search-input" placeholder="search Pokemon">
-                <button onclick="searchPokemon()">suchen</button>
+                <button onclick="searchPokemon()">search</button>
             </div>
         </div>
         
@@ -31,7 +31,7 @@
             <div id="overlay-content">overlay content</div>
         </div>
         <div id="pokemon-cards" class="content"></div>
-        <button class="load-more-button">Load more...</button>
+        <button onclick="getMoreData()" class="load-more-button">Load more...</button>
     </main>
     <footer>
         <a href="https://github.com/Ch1charito" target="_blank">

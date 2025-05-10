@@ -6,6 +6,7 @@
 
 let allPokemon =[];                 // eine variable in der wir alle Pokemon-Daten -> name und urls speichern
 console.log(allPokemon);
+let nextUrl = null;
 
 // !! WICHTIG: eine asynchrone function wird gebraucht damit wir fetchen also zugreifen können auf eine api
     async function getAndStoreData() {                      // eine asynchrone function mit der wir auf die api zugreifen
@@ -13,6 +14,7 @@ console.log(allPokemon);
         const response = await fetch(url);                  // wir fetchen uns über die url und speichern in response wieder
         const data = await response.json();                 // wir wandeln unser response in ein JSON objekt und speichern das dann in data zwischen
         allPokemon = data.results;                          // wir geben unserer globalen variablen nur den teil results weil wir nur die namen und die weitern urls zu den restinfos der pokemon brauchen
+        nextUrl = data.next;                                // wir speichern den link für die nächsten 20 Pokemon
         console.log(allPokemon);                            // wir lassen uns nun allPokemon als log anzeigen und sehen das es ein array ist
         await getAllInfo();                                 // fügt direkt alle infos beim ausführen hinzu
     }
@@ -35,6 +37,7 @@ console.log(allPokemon);
 
     function renderPokemonCards() {
         let PokemonContentRef = document.getElementById('pokemon-cards');
+        PokemonContentRef.innerHTML = "";
         for (let i = 0; i < allPokemon.length; i++) {
             PokemonContentRef.innerHTML += getPokemonCardTemplate(i);
             renderCardNumber(i);
@@ -285,3 +288,17 @@ console.log(allPokemon);
             setCardBackgroundColor(index);
         }
     }
+
+    // eine function um mehr zu laden
+
+    async function getMoreData() {
+        if (!nextUrl) return; // Wenn keine weitere Seite vorhanden ist, abbrechen
+    
+        const response = await fetch(nextUrl);      // Neue Seite fetchen
+        const data = await response.json();         // In JSON umwandeln
+        nextUrl = data.next;                        // Neue next-URL speichern (oder null, wenn es keine mehr gibt)
+        allPokemon.push(...data.results);           // Ergebnisse an bestehendes Array anhängen --> ich brauche ... damit die pokemon einzeln als objekt hinzugefügt werden und nicht die neuen 20 als ein array zusammen
+        await getAllInfo();                         // Detaillierte Infos zu den neuen Pokémon laden
+        renderPokemonCards();
+    }
+
