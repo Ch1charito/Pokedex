@@ -149,7 +149,7 @@ main{
             filter: drop-shadow(0px 0px 4px #ffffff);
         }
     }
-    .load-more-button{
+    #load-more-btn{
         border-radius: 15px;
         width: 120px;
         height: 40px;
@@ -159,9 +159,14 @@ main{
         margin: 24px;
         cursor: pointer;
     }
-    .load-more-button:hover{
+    #load-more-btn:hover{
             cursor: pointer;
             filter: drop-shadow(0px 0px 4px #ffffff);
+        }
+    #load-more-btn.disabled {
+        pointer-events: none;       
+        cursor: not-allowed;        
+        opacity: 0.6;               
         }
 }
 

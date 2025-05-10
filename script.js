@@ -292,6 +292,7 @@ let nextUrl = null;
     // eine function um mehr zu laden
 
     async function getMoreData() {
+        await simulateLoading();
         if (!nextUrl) return; // Wenn keine weitere Seite vorhanden ist, abbrechen
     
         const response = await fetch(nextUrl);      // Neue Seite fetchen
@@ -300,5 +301,30 @@ let nextUrl = null;
         allPokemon.push(...data.results);           // Ergebnisse an bestehendes Array anhängen --> ich brauche ... damit die pokemon einzeln als objekt hinzugefügt werden und nicht die neuen 20 als ein array zusammen
         await getAllInfo();                         // Detaillierte Infos zu den neuen Pokémon laden
         renderPokemonCards();
+    }
+
+    // ich brauche nun eine function die eine verzögerung über ein promise macht während ich auf die api zugreife
+    function simulateLoading() {
+        return new Promise((resolve) => {
+            toggleLoadingState(true); // Spinner ein, Button aus
+    
+            setTimeout(() => {
+                toggleLoadingState(false); // Spinner aus, Button wieder aktiv
+                resolve(); // Weiter geht's
+            }, 3000); // feste Dauer in Millisekunden (hier: 1,5 Sekunden)
+        });
+    }
+
+    function toggleLoadingState(isLoading) {
+        const button = document.getElementById('load-more-btn');
+        
+    
+        if (isLoading) {
+            button.classList.add('disabled'); // Klasse hinzufügen
+            
+        } else {
+            button.classList.remove('disabled'); // Klasse entfernen
+            
+        }
     }
 
